@@ -1,21 +1,24 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable, catchError, debounceTime, distinctUntilChanged, filter, of, switchMap, tap } from 'rxjs';
 import { Flight, FlightService } from '../../../booking/api-boarding';
-import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
 
 
 @Component({
-    selector: 'app-departure',
-    templateUrl: './departure.component.html',
-    imports: [ReactiveFormsModule, NgIf, NgFor, AsyncPipe, DatePipe]
+  selector: 'app-departure',
+  imports: [
+    CommonModule,
+    ReactiveFormsModule
+  ],
+  templateUrl: './departure.component.html'
 })
 export class DepatureComponent {
+  private flightService = inject(FlightService);
+
   control = new FormControl('', { nonNullable: true });
   flights$ = this.initFlightsStream();
   loading = false;
-
-  constructor(private flightService: FlightService) {}
 
   initFlightsStream(): Observable<Flight[]> {
     return this.control.valueChanges.pipe(
