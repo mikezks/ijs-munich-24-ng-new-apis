@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable, catchError, debounceTime, distinctUntilChanged, filter, of, switchMap, tap } from 'rxjs';
 import { Flight, FlightService } from '../../../booking/api-boarding';
+import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
 
 
 @Component({
-  selector: 'app-departure',
-  standalone: false,
-  templateUrl: './departure.component.html'
+    selector: 'app-departure',
+    templateUrl: './departure.component.html',
+    imports: [ReactiveFormsModule, NgIf, NgFor, AsyncPipe, DatePipe]
 })
 export class DepatureComponent {
   control = new FormControl('', { nonNullable: true });

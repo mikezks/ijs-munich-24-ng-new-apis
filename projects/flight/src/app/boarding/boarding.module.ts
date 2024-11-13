@@ -6,13 +6,11 @@ import { DepatureComponent } from './feature-departure/flight-departure/departur
 
 
 @NgModule({
-  declarations: [
-    DepatureComponent
-  ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    BoardingRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        BoardingRoutingModule,
+        DepatureComponent
+    ]
 })
 export class BoardingModule { }
