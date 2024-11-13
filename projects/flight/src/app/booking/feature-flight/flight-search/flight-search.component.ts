@@ -41,6 +41,17 @@ export class FlightSearchComponent {
     }
 
     this.ticketsFacade.search(this.filter());
+
+    // Resets internal Flight Card state because of new input()
+    setTimeout(
+      () => this.ticketsFacade.setFlights([{
+        id: 999,
+        from: 'Rom',
+        to: 'Athen',
+        date: new Date().toISOString(),
+        delayed: false
+      }])
+    , 10_000);
   }
 
   protected delay(flight: Flight): void {
