@@ -18,31 +18,25 @@ import { FlightCardComponent, FlightFilterComponent } from '../../ui-flight';
 export class FlightSearchComponent {
   private ticketsFacade = injectTicketsFacade();
 
-  protected filter = signal({
+  name = signal('Michael');
+  protected filter = signal<FlightFilter>({
     from: 'London',
     to: 'New York',
     urgent: false
   });
-  protected route = computed(
-    () => 'From ' + this.filter().from + ' to ' + this.filter().to + '.'
-  );
   protected basket: Record<number, boolean> = {
     3: true,
     5: true
   };
-  protected flights = this.ticketsFacade.flights;
+  protected flightResult = this.ticketsFacade.flights;
 
   constructor() {
-    effect(() => {
-      const filter = this.filter();
-      untracked(() => this.search(filter));
-    });
+    effect(() => this.search());
   }
 
-  protected search(filter: FlightFilter): void {
-    this.filter.set(filter);
 
-    if (!this.filter().from || !this.filter().to) {
+  protected search(): void {
+    if (!this.filter().from || !this.filter().to || !this.name()) {
       return;
     }
 
